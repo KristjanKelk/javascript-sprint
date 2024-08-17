@@ -1,4 +1,4 @@
-const someBool = new Boolean(true);
-const someNumber = new Number(8);
+const someBool = new Boolean();
+const someNumber = new Number();
 let someUndefined;
-const someString = new String("String");
+const someString = new String();

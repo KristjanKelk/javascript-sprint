@@ -1,1 +1,1 @@
-process.stdout.write("Hello world!")
+process.stdout.write("Hello, world!")

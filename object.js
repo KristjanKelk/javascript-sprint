@@ -1,7 +1,8 @@
+let someUndefined
 const obj = {
    someBool : Boolean(),
    someNumber : Number(2),
-   someUndefined : "undefined",
+   someUndefined,
    someString : String("String"),
 
 };

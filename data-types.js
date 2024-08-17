@@ -1,5 +1,5 @@
 const someBool = Boolean(true);
-const someNumber = new Number();
+const someNumber = Number(8);
 let someUndefined;
-const someString = new String();
+const someString = String("String");
 //console.log(someBool, someNumber, someString);

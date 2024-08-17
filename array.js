@@ -1,2 +1,2 @@
-let homogenousArray = [2, "kolm", false];
+let homogenousArray = [false, true, false];
 let heterogeneousArray = [1, "kaks", true];

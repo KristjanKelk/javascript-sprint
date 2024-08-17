@@ -1,4 +1,4 @@
-const someBool = Boolean(boolean);
+const someBool = Boolean(true);
 const someNumber = new Number();
 let someUndefined;
 const someString = new String();

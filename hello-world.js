@@ -1,1 +1,1 @@
-console.log("Hello world!\n")
+process.stdout.write("Hello world!")

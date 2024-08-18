@@ -1,13 +1,10 @@
-let someUndefined
 
-let nestedObj= [{
-  someBool: Boolean(true),
-  someNumber: Number(1),
-  someUndefined,
-  someString: String("String1"),
-}, {
-  someBool: Boolean(false),
-  someNumber: Number(2),
-  someUndefined,
-  someString: String("String2"),
-}];
+const nestedObj = {
+  arr: [1, 2, 3],
+  obj: {
+      someBool: true,           
+      someNumber: 42,           
+      someUndefined: undefined, 
+      someString: "Hello"       
+  }
+};

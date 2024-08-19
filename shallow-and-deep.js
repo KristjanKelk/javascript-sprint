@@ -1,3 +1,6 @@
 
-const shallowCopy = Array.from(original);
+// Shallow copy
+const shallowCopy = { ...original };
+
+// Deep copy
 const deepCopy = JSON.parse(JSON.stringify(original));

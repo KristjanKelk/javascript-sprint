@@ -3,7 +3,7 @@ function getFirstElement(arr) {
 }
 
 function getLastElement(arr) {
-  return arr[length(arr)];
+  return arr[arr.length - 1];
 }
 
 

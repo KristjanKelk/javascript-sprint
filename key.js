@@ -1,7 +1,4 @@
-const location = {
-  city: 'Tallinn',
-  country: 'Estonia',
-}
+
 
 
 

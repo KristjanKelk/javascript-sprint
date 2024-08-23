@@ -10,13 +10,13 @@ const objects = [
 console.log(convertArrayOfObjectsToStrings(objects))
 
 function convertArrayOfObjectsToStrings(objects) {
-  return objects.map(obj => {
+  return JSON.stringify(objects.map(obj => {
     const entries = Object.keys(obj).map(key => {
       const capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
       return `${capitalizedKey}: ${obj[key]}`;
     });
     return entries.join(', ');
-  });
+  }));
 }
 
 function concatenateStrings(strings, maxLength) {

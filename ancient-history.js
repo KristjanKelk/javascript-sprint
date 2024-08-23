@@ -1,16 +1,23 @@
-function classifyDate(input){
+function classifyDate(input) {
   const today = new Date();
+  
   if (!(input instanceof Date)) {
     throw new TypeError('Input must be a Date object');
   }
-  if (input <= today) {
+
+  const oneYearAgo = new Date(today);
+  oneYearAgo.setFullYear(today.getFullYear() - 1);
+
+  const oneYearFromNow = new Date(today);
+  oneYearFromNow.setFullYear(today.getFullYear() + 1);
+
+  if (input < oneYearAgo) {
+    return "ancient";
+  } else if (input <= today) {
     return "past";
-  } else if (input >= today){
+  } else if (input > oneYearFromNow) {
+    return "distant future";
+  } else {
     return "future";
   }
-  if (input.getFullYear() > today.getFullYear()){
-    return "distant future";
-  } else if (input.getFullYear() < today.getFullYear()){
-    return "ancient";
-  }
-};
+}

@@ -14,20 +14,7 @@ var mathObj = {
   isStrictlyPositive: function(a) {
     return a > 0;
   },
+  min: (a, b) => Math.min(a, b),
 
-  min(a, b) {
-    if (a < b) {
-      return a;
-    } else {
-      return b;
-    }
-  },
-
-  max(a, b) {
-    if (a > b) {
-      return a;
-    } else {
-      return b;
-    }
-  }
+  max: (a, b) => Math.max(a, b),
 };

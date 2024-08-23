@@ -1,8 +1,3 @@
-const arr = [
-  { name: "Alice", age: 30 },
-  { name: "Bob", age: undefined },
-  { name: "Charlie", age: 35 },
-];
 
 function getTotalSum(arr, property) {
   const initialValue = 0;
@@ -23,4 +18,13 @@ function getAverageAge(arr) {
   return totalAge / validEntries;
 }
 
-console.log(getAverageAge(arr));
+function concatenateObjects(objects) {
+  return objects.reduce((accumulator, current) => {
+    const { key, value } = current;
+    if (!accumulator[key]) {
+      accumulator[key] = [];
+    }
+    accumulator[key].push(value);
+    return accumulator;
+  }, {});
+}

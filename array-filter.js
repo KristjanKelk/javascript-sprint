@@ -2,11 +2,11 @@ function filterOutOddNumbers(numbers) {
   return numbers.filter(number => number % 2 === 0);
 }
 
-function filterObjectsByNameLength(str, len) {
-  if (str === undefined) {
-    throw new TypeError('Empty string');
+function filterObjectsByNameLength(objects, maxLength) {
+  if (!Array.isArray(objects)) {
+    throw new TypeError('Expected an array of objects');
   }
-  return str.filter(str.name.length <= len);
+  return objects.filter(object => object.name.length <= maxLength);
 }
 
 function compoundFilter(products) {

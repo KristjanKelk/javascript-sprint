@@ -11,7 +11,7 @@ function calculateFines(carData) {
     const model = car[1];
     const reg = car[2];
     const year = car[3];
-    const fuelType = car[4];
+    const fuel = car[4];
 
     let fine = 0;
 
@@ -19,13 +19,13 @@ function calculateFines(carData) {
       fine = 20;
     }
 
-    else if (fuelType === 'diesel' && year < 2015) {
+    else if (fuel === 'diesel' && year < 2015) {
       fine = 10;
     }
 
     if (fine > 0) {
       totalFine += fine;
-      finedCars.push({ reg, year, fuelType, fine });
+      finedCars.push({ reg, year, fuel, fine });
     }
   }
 

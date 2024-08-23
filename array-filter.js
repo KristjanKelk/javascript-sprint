@@ -3,8 +3,8 @@ function filterOutOddNumbers(numbers) {
 }
 
 function filterObjectsByNameLength(str, len) {
-  if (!Array.isArray(str)) {
-    throw new TypeError('Expected an array of objects');
+  if (str === undedfined) {
+    throw new TypeError('Empty string');
   }
   return str.filter(str.name.length <= len);
 }

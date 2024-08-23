@@ -24,4 +24,6 @@ function printPrettyDate(date) {
   
   const formattedHours = String(hours).padStart(2, '0');
   
+
+  console.log(prettyDate);
 }

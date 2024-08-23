@@ -4,7 +4,8 @@ function convert2DArrayToObjectArray(arr) {
 
 function convertArrayOfObjectsToStrings(objects) {
   return objects.map(obj => {
-    return `Name: ${obj.name}, Age: ${obj.age}, City: ${obj.city}`;
+    const entries = Object.keys(obj).map(key => `${key}: ${obj[key]}`);
+    return entries.join(', ');
   });
 }
 

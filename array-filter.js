@@ -3,7 +3,7 @@ function filterOutOddNumbers(numbers) {
 }
 
 function filterObjectsByNameLength(str, len) {
-  if (str === undedfined) {
+  if (str === undefined) {
     throw new TypeError('Empty string');
   }
   return str.filter(str.name.length <= len);

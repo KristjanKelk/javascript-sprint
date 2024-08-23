@@ -13,6 +13,9 @@ function getTotalFromShoppingBasket(arr) {
 }
 
 function getAverageAge(arr) {
+  if (arr.length === 0) {
+    return 0;
+  }
   const totalAge = getTotalSum(arr, 'age');
   const validEntries = arr.filter(person => person.age !== undefined).length;
   return totalAge / validEntries;

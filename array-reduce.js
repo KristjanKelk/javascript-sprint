@@ -1,28 +1,26 @@
 const arr = [
-  { name: "Apple", price: 2.5 },
-  { name: "Banana", price: 1.5 },
-  { name: "Orange", price: 3 },
-  { name: "Mango", price: 4 },
-]
+  { name: "Alice", age: 30 },
+  { name: "Bob", age: undefined },
+  { name: "Charlie", age: 35 },
+];
 
-function getTotalSum(arr) {
+function getTotalSum(arr, property) {
   const initialValue = 0;
   const sumWithInitial = arr.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.price,
+    (accumulator, currentValue) => accumulator + (currentValue[property] || 0),
     initialValue
   );
   return sumWithInitial;
 }
 
 function getTotalFromShoppingBasket(arr) {
-
-  return getTotalSum(arr);
+  return getTotalSum(arr, 'price');
 }
-
-console.log(getTotalFromShoppingBasket(arr))
 
 function getAverageAge(arr) {
-  return getTotalSum(arr) / arr.length;
+  const totalAge = getTotalSum(arr, 'age');
+  const validEntries = arr.filter(person => person.age !== undefined).length;
+  return totalAge / validEntries;
 }
 
-//console.log(getAverageAge(arr))
+console.log(getAverageAge(arr));

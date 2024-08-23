@@ -3,6 +3,9 @@ function filterOutOddNumbers(numbers) {
 }
 
 function filterObjectsByNameLength(str, len) {
+  if (!Array.isArray(str)) {
+    throw new TypeError('Expected an array of objects');
+  }
   return str.filter(str.name.length <= len);
 }
 
@@ -14,4 +17,3 @@ function compoundFilter(products) {
     product.location !== "Underground"
   );
 }
-

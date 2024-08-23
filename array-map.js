@@ -10,7 +10,9 @@ function convertArrayOfObjectsToStrings(objects) {
 
 function concatenateStrings(strings, maxLength) {
   return strings.map(str => {
-    if (str.length > maxLength) {
+    if (str === undefined) {
+      return str;
+    } else if (str.length > maxLength) {
       return str.slice(0, maxLength) + '...';
     } else {
       return str;

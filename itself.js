@@ -1,3 +1,3 @@
-var selfReferencingObject = {
-  itself : selfReferencingObject
-};
+var selfReferencingObject = {};
+
+selfReferencingObject.itself = selfReferencingObject;

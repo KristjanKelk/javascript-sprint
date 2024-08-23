@@ -1,17 +1,17 @@
-function mathObj() {
-  function abs() {
+var mathObj = {
+  abs(a) {
+    return math.abs(a);
+  },
 
-  }
+  isEven: function(a) {
+    return (a % 2) == 0;
+  },
 
-  function isEven() {
+  isOdd: function(a) {
+    return (a % 2) != 0;
+ },
 
-  }
-
- function isOdd() {
-
+ isStrictlyPositive: function(a) {
+  return a > 0;
  }
-
- function isStrictlyPositive() {
-  
- }
-}
+};

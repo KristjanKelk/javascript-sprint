@@ -23,7 +23,8 @@ function printPrettyDate(date) {
   hours = hours ? hours : 12;
   
   const formattedHours = String(hours).padStart(2, '0');
-  
+ 
+  const prettyDate = `Today is ${dayName}, ${monthName} ${dayOfMonth}, ${year}, and the time is ${formattedHours}:${minutes}:${seconds} ${ampm}`;
 
   console.log(prettyDate);
 }

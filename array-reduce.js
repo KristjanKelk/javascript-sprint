@@ -11,9 +11,11 @@ function getTotalSum(arr, property) {
 function getTotalFromShoppingBasket(arr) {
   return getTotalSum(arr, 'price');
 }
+let people 
 
+console.log(getAverageAge(people))
 function getAverageAge(arr) {
-  if (arr.length === 0) {
+  if (arr === undefined || arr.length === 0 ) {
     return 0;
   }
   const totalAge = getTotalSum(arr, 'age');

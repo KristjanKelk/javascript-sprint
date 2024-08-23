@@ -8,4 +8,9 @@ function classifyDate(input){
   } else if (input >= today){
     return "future";
   }
+  if (input.getFullYear() > today.getFullYear()){
+    return "distant future";
+  } else if (input.getFullYear() < today.getFullYear()){
+    return "ancient";
+  }
 };

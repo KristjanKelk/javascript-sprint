@@ -3,9 +3,6 @@ function filterOutOddNumbers(numbers) {
 }
 
 function filterObjectsByNameLength(objects, maxLength) {
-  if (!Array.isArray(objects)) {
-    throw new TypeError('Expected an array of objects');
-  }
   return objects.filter(object => object.name.length <= maxLength);
 }
 

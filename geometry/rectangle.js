@@ -22,3 +22,5 @@ const rectangle = new Rectangle(5, 3);
 console.log(rectangle);
 rectangle.area();       
 rectangle.perimeter();
+
+module.exports = Rectangle;

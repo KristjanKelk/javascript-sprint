@@ -5,13 +5,22 @@ class Rectangle {
   }
 
   area() {
-    return this.width * this.height;
+    let area = this.width * this.height;
+    //console.log(`${area} is the area`);
+    return area;
   }
 
   perimeter() {
-    return 2 * (this.width + this.height);
+    let perimeter = 2 * (this.width + this.height);
+    //console.log(`${perimeter} is the perimeter`);
+    return perimeter;
   }
 }
 
-// Export the class so it can be imported elsewhere
+const rectangle = new Rectangle(5, 3);
+
+console.log(rectangle);
+rectangle.area();       
+rectangle.perimeter();
+
 module.exports = Rectangle;

@@ -11,12 +11,4 @@ const rectObj = {
   }
 };
 
-
-console.log(`Initial Area: ${rectObj.area()}`);     
-console.log(`Initial Perimeter: ${rectObj.perimeter()}`); 
-
-rectObj.width = 60;
-rectObj.height = 40;
-
-console.log(`New Area: ${rectObj.area()}`); 
-console.log(`New Perimeter: ${rectObj.perimeter()}`);
+module.exports = rectObj;

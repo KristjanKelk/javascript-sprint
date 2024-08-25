@@ -6,15 +6,19 @@ class Rectangle {
 
   area() {
     let area = this.width * this.height;
-    console.log(`${area} is the area`); 
+    //console.log(`${area} is the area`);
     return area;
   }
 
   perimeter() {
-    return 2 * (this.width + this.height);
+    let perimeter = 2 * (this.width + this.height);
+    //console.log(`${perimeter} is the perimeter`);
+    return perimeter;
   }
 }
 
 const rectangle = new Rectangle(5, 3);
-//console.log(rectangle);
-//rectangle.area();
+
+console.log(rectangle);
+rectangle.area();       
+rectangle.perimeter();

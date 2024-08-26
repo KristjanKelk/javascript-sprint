@@ -1,5 +1,8 @@
 function initializeChessboard() {
-    const chessboard = document.getElementById('chessboard');
+    const chessboard = document.createElement('div');
+    chessboard.className = 'chessboard';
+    document.body.appendChild(chessboard);
+
     let isWhite = true;
 
     for (let row = 1; row <= 8; row++) {
@@ -7,6 +10,9 @@ function initializeChessboard() {
             const square = document.createElement('div');
             square.id = `square-${row}-${col}`;
             square.className = `square ${isWhite ? 'white' : 'black'}`;
+
+            square.style.backgroundColor = isWhite ? '#ffffff' : '#000000';
+
             square.addEventListener('click', function() {
                 if (square.style.backgroundColor === 'red') {
                     resetSquareColor(square);
@@ -20,7 +26,6 @@ function initializeChessboard() {
 
             isWhite = !isWhite;
         }
-
         isWhite = !isWhite;
     }
 }
@@ -39,3 +44,5 @@ function resetSquareColor(square) {
         square.style.backgroundColor = '#000000';
     }
 }
+
+initializeChessboard();

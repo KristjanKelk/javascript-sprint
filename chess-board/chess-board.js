@@ -34,8 +34,8 @@ function resetSquareColors() {
 
 function resetSquareColor(square) {
     if (square.classList.contains('white')) {
-        square.style.backgroundColor = '#f0d9b5';
+        square.style.backgroundColor = '#ffffff';
     } else {
-        square.style.backgroundColor = '#b58863';
+        square.style.backgroundColor = '#000000';
     }
 }

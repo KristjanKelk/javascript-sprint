@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   const mainDiv = document.createElement('div');
-  mainDiv.className = 'content';
+  mainDiv.id = 'content';
 
   const contentParagraph = document.createElement('p');
   contentParagraph.textContent = 'code';
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.body.appendChild(mainDiv);
 
   const buttonContainer = document.createElement('div');
-  buttonContainer.className = 'button-container';
+  buttonContainer.className = 'controls';
   document.body.appendChild(buttonContainer);
 
   function createButton(id, text, toggleFunction) {

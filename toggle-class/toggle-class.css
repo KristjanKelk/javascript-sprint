@@ -8,7 +8,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.button-container {
+.controls {
   display: flex;
   gap: 10px;
   margin-top: 20px;
@@ -33,7 +33,6 @@ button {
   margin: 5px;
 }
 
-/* Additional styles for toggled classes */
 .bold {
   font-weight: bold;
 }

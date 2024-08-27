@@ -1,76 +1,43 @@
 document.addEventListener('DOMContentLoaded', function () {
-  console.log('JavaScript is running');
+  const mainDiv = document.createElement('div');
+  mainDiv.className = 'content';
 
-  const contentParagraph = document.querySelector('#content p');
+  const contentParagraph = document.createElement('p');
+  contentParagraph.textContent = 'code';
+  mainDiv.appendChild(contentParagraph);
 
-  // Create the button container and buttons
+  document.body.appendChild(mainDiv);
+
   const buttonContainer = document.createElement('div');
-  buttonContainer.className = 'controls';
+  buttonContainer.className = 'button-container';
   document.body.appendChild(buttonContainer);
 
-  // Create the toggle bold button
-  const toggleBoldButton = document.createElement('button');
-  toggleBoldButton.id = 'bold';
-  toggleBoldButton.textContent = 'B';
-  toggleBoldButton.addEventListener('click', toggleBold);
-  buttonContainer.appendChild(toggleBoldButton);
+  function createButton(id, text, toggleFunction) {
+      const button = document.createElement('button');
+      button.id = id;
+      button.textContent = text;
+      button.addEventListener('click', toggleFunction);
+      buttonContainer.appendChild(button);
+  }
 
-  // Create the toggle Italic button
-  const toggleItalicButton = document.createElement('button');
-  toggleItalicButton.id = 'italic';
-  toggleItalicButton.textContent = 'I';
-  toggleItalicButton.addEventListener('click', toggleItalic);
-  buttonContainer.appendChild(toggleItalicButton);
-
-  // Create the toggle Underline button
-  const toggleUnderlineButton = document.createElement('button');
-  toggleUnderlineButton.id = 'underline';
-  toggleUnderlineButton.textContent = 'U';
-  toggleUnderlineButton.addEventListener('click', toggleUnderline);
-  buttonContainer.appendChild(toggleUnderlineButton);
-
-  // Create the toggle Highlight button
-  const toggleHighlightButton = document.createElement('button');
-  toggleHighlightButton.id = 'highlight';
-  toggleHighlightButton.textContent = 'H';
-  toggleHighlightButton.addEventListener('click', toggleHighlight);
-  buttonContainer.appendChild(toggleHighlightButton);
-
-  
   function toggleBold() {
-      const currentFontWeight = window.getComputedStyle(contentParagraph).fontWeight;
-      if (currentFontWeight === 'bold' || currentFontWeight === '700') {
-          contentParagraph.style.fontWeight = 'normal';
-      } else {
-          contentParagraph.style.fontWeight = 'bold';
-      }
+      contentParagraph.classList.toggle('bold');
   }
 
   function toggleItalic() {
-      const currentFontStyle = window.getComputedStyle(contentParagraph).fontStyle;
-      if (currentFontStyle === 'italic') {
-          contentParagraph.style.fontStyle = 'normal';
-      } else {
-          contentParagraph.style.fontStyle = 'italic';
-      }
+      contentParagraph.classList.toggle('italics');
   }
 
   function toggleUnderline() {
-    const currentTextDecoration = window.getComputedStyle(contentParagraph).textDecorationLine;
-    if (currentTextDecoration === 'underline') {
-        contentParagraph.style.textDecoration = 'none';
-    } else {
-        contentParagraph.style.textDecoration = 'underline';
-    }
+      contentParagraph.classList.toggle('underline');
   }
 
   function toggleHighlight() {
-    const currentBackgroundColor = window.getComputedStyle(contentParagraph).backgroundColor;
-    if (currentBackgroundColor === 'rgb(255, 255, 0)') {
-        contentParagraph.style.backgroundColor = 'transparent';
-    } else {
-        contentParagraph.style.backgroundColor = 'yellow';
-    }
+      mainDiv.classList.toggle('highlight');
   }
 
+  createButton('bold', 'B', toggleBold);
+  createButton('italics', 'I', toggleItalic);
+  createButton('underline', 'U', toggleUnderline);
+  createButton('highlight', 'Highlight', toggleHighlight);
 });

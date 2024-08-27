@@ -32,3 +32,20 @@ button {
   cursor: pointer;
   margin: 5px;
 }
+
+/* Additional styles for toggled classes */
+.bold {
+  font-weight: bold;
+}
+
+.italics {
+  font-style: italic;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.highlight {
+  background-color: yellow;
+}

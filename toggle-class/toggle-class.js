@@ -24,14 +24,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Create the toggle Underline button
   const toggleUnderlineButton = document.createElement('button');
-  toggleUnderlineButton.id = 'toggleItalic';
+  toggleUnderlineButton.id = 'underline';
   toggleUnderlineButton.textContent = 'U';
   toggleUnderlineButton.addEventListener('click', toggleUnderline);
   buttonContainer.appendChild(toggleUnderlineButton);
 
   // Create the toggle Highlight button
   const toggleHighlightButton = document.createElement('button');
-  toggleHighlightButton.id = 'toggleHighlight';
+  toggleHighlightButton.id = 'highlight';
   toggleHighlightButton.textContent = 'H';
   toggleHighlightButton.addEventListener('click', toggleHighlight);
   buttonContainer.appendChild(toggleHighlightButton);

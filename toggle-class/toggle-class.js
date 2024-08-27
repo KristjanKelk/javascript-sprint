@@ -10,14 +10,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Create the toggle bold button
   const toggleBoldButton = document.createElement('button');
-  toggleBoldButton.id = 'toggleBold';
+  toggleBoldButton.id = 'bold';
   toggleBoldButton.textContent = 'B';
   toggleBoldButton.addEventListener('click', toggleBold);
   buttonContainer.appendChild(toggleBoldButton);
 
   // Create the toggle Italic button
   const toggleItalicButton = document.createElement('button');
-  toggleItalicButton.id = 'toggleItalic';
+  toggleItalicButton.id = 'italic';
   toggleItalicButton.textContent = 'I';
   toggleItalicButton.addEventListener('click', toggleItalic);
   buttonContainer.appendChild(toggleItalicButton);

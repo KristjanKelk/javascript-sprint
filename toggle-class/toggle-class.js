@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function toggleItalic() {
-      contentParagraph.classList.toggle('italics');
+      contentParagraph.classList.toggle('italic');
   }
 
   function toggleUnderline() {
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   createButton('bold', 'B', toggleBold);
-  createButton('italics', 'I', toggleItalic);
+  createButton('italic', 'I', toggleItalic);
   createButton('underline', 'U', toggleUnderline);
   createButton('highlight', 'Highlight', toggleHighlight);
 });

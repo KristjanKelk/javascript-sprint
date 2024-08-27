@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleHighlightButton.addEventListener('click', toggleHighlight);
   buttonContainer.appendChild(toggleHighlightButton);
 
+  
   function toggleBold() {
       const currentFontWeight = window.getComputedStyle(contentParagraph).fontWeight;
       if (currentFontWeight === 'bold' || currentFontWeight === '700') {
@@ -61,13 +62,15 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         contentParagraph.style.textDecoration = 'underline';
     }
-}
-function toggleHighlight() {
-  const currentBackgroundColor = window.getComputedStyle(contentParagraph).backgroundColor;
-  if (currentBackgroundColor === 'rgb(255, 255, 0)') {
-      contentParagraph.style.backgroundColor = 'transparent';
-  } else {
-      contentParagraph.style.backgroundColor = 'yellow';
   }
-}
+
+  function toggleHighlight() {
+    const currentBackgroundColor = window.getComputedStyle(contentParagraph).backgroundColor;
+    if (currentBackgroundColor === 'rgb(255, 255, 0)') {
+        contentParagraph.style.backgroundColor = 'transparent';
+    } else {
+        contentParagraph.style.backgroundColor = 'yellow';
+    }
+  }
+
 });

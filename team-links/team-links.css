@@ -1,5 +1,3 @@
-/* team-links.css */
-
 ul.team-links {
   list-style-type: none;
   padding: 0;
@@ -16,14 +14,17 @@ ul.team-links li:hover a {
   font-weight: bold;
 }
 
+
 ul.team-links li a {
   text-decoration: none;
   color: inherit;
+  font-weight: normal;
 }
+
 
 ul.team-links li span {
   margin-left: 10px;
   color: #000;
-  font-weight: bold;
+  font-weight: normal;
   cursor: pointer;
 }

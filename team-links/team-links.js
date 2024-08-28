@@ -1,4 +1,3 @@
-
 function createLinks(teams) {
   const existingList = document.getElementById('team-list-nav');
   if (existingList) {
@@ -18,7 +17,6 @@ function createLinks(teams) {
       a.textContent = team.name;
       a.style.color = team.secondary;
 
-      
       li.addEventListener('mouseenter', () => {
           a.style.fontWeight = 'bold';
       });
@@ -30,10 +28,11 @@ function createLinks(teams) {
       span.textContent = '[copy]';
       span.style.cursor = 'pointer';
 
-      
       span.addEventListener('click', () => {
           navigator.clipboard.writeText(team.url).then(() => {
-              alert('URL copied to clipboard');
+              console.log('URL copied to clipboard');
+              const copyEvent = new CustomEvent('urlCopied', { detail: team.url });
+              span.dispatchEvent(copyEvent);
           }).catch(err => {
               console.error('Failed to copy text: ', err);
           });
@@ -44,6 +43,5 @@ function createLinks(teams) {
       ul.appendChild(li);
   });
 
-  
   document.body.appendChild(ul);
 }

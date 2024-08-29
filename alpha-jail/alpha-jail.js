@@ -10,8 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
   insideZone.classList.add('zone', 'inside');
   body.appendChild(insideZone);
 
-  const outside = document.querySelector('.outside');
-  const inside = document.querySelector('.inside');
+  let lastCursorX = 0;
+  let lastCursorY = 0;
+
+  body.addEventListener('mousemove', (e) => {
+      lastCursorX = e.clientX;
+      lastCursorY = e.clientY;
+  });
 
   document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
@@ -25,11 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
               currentCharacter = null;
           }
 
-          const { clientX: x, clientY: y } = getCursorPosition();
-          currentCharacter = createCharacter(e.key, x, y);
+          currentCharacter = createCharacter(e.key, lastCursorX, lastCursorY);
           body.appendChild(currentCharacter);
 
-          if (isPointerInside({ clientX: x, clientY: y }, inside)) {
+          if (isPointerInside({ clientX: lastCursorX, clientY: lastCursorY }, insideZone)) {
               currentCharacter.classList.add('trapped');
           }
       }
@@ -37,12 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   body.addEventListener('mousemove', (e) => {
       if (currentCharacter && currentCharacter.classList.contains('follow')) {
-          let x = e.clientX - currentCharacter.offsetWidth / 2;
-          let y = e.clientY - currentCharacter.offsetHeight / 2;
+          let x = e.clientX;
+          let y = e.clientY;
 
           if (currentCharacter.classList.contains('trapped')) {
-              const insideRect = inside.getBoundingClientRect();
-
+              const insideRect = insideZone.getBoundingClientRect();
               x = Math.max(insideRect.left, Math.min(x, insideRect.right - currentCharacter.offsetWidth));
               y = Math.max(insideRect.top, Math.min(y, insideRect.bottom - currentCharacter.offsetHeight));
           }
@@ -50,22 +53,17 @@ document.addEventListener('DOMContentLoaded', () => {
           currentCharacter.style.left = `${x}px`;
           currentCharacter.style.top = `${y}px`;
 
-          if (!currentCharacter.classList.contains('trapped') && isPointerInside(e, inside)) {
-              currentCharacter.classList.add('trapped');
+          if (!currentCharacter.classList.contains('trapped') && isPointerInside(e, insideZone)) {
+              currentCharacter.classList.add('trapped')
           }
       }
   });
 
-  function getCursorPosition() {
-      return { clientX: lastCursorX, clientY: lastCursorY };
-  }
-
-  let lastCursorX = 0;
-  let lastCursorY = 0;
-
-  body.addEventListener('mousemove', (e) => {
-      lastCursorX = e.clientX;
-      lastCursorY = e.clientY;
+  insideZone.addEventListener('mouseleave', () => {
+      if (currentCharacter && currentCharacter.classList.contains('trapped')) {
+          currentCharacter.classList.remove('follow');
+          currentCharacter = null;
+      }
   });
 
   function isPointerInside(event, element) {
@@ -79,8 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
       charDiv.textContent = letter;
       charDiv.classList.add('character', 'follow');
       charDiv.style.position = 'absolute';
-      charDiv.style.left = `${x - charDiv.offsetWidth / 2}px`;
-      charDiv.style.top = `${y - charDiv.offsetHeight / 2}px`;
+      charDiv.style.left = `${x}px`;
+      charDiv.style.top = `${y}px`;
       return charDiv;
   }
 
@@ -90,14 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentCharacter = null;
   }
 
-  insideZone.addEventListener('mouseleave', () => {
-      if (currentCharacter && currentCharacter.classList.contains('trapped')) {
-          currentCharacter.classList.remove('follow');
-          currentCharacter = null;
-      }
-  });
+  function isLetterKey(key) {
+      return key.length === 1 && key >= 'a' && key <= 'z';
+  }
 });
-
-function isLetterKey(key) {
-  return key.length === 1 && key >= 'a' && key <= 'z';
-}

@@ -57,14 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
                   currentCharacter.classList.add('trapped');
               }
               const insideRect = insideZone.getBoundingClientRect();
-              x = Math.max(insideRect.left, Math.min(x, insideRect.right - currentCharacter.offsetWidth));
-              y = Math.max(insideRect.top, Math.min(y, insideRect.bottom - currentCharacter.offsetHeight));
+              x = Math.max(insideRect.left + currentCharacter.offsetWidth / 2, Math.min(x, insideRect.right - currentCharacter.offsetWidth / 2));
+              y = Math.max(insideRect.top + currentCharacter.offsetHeight / 2, Math.min(y, insideRect.bottom - currentCharacter.offsetHeight / 2));
           }
 
           currentCharacter.style.left = `${x - currentCharacter.offsetWidth / 2}px`;
           currentCharacter.style.top = `${y - currentCharacter.offsetHeight / 2}px`;
 
-          // Check if the cursor is outside the jail and the character is trapped
           if (!isPointerInside({ clientX: lastCursorX, clientY: lastCursorY }, insideZone) && currentCharacter.classList.contains('trapped')) {
               snapToJailEdge();
               currentCharacter.classList.remove('follow');
@@ -78,8 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function snapToJailEdge() {
       const insideRect = insideZone.getBoundingClientRect();
-      let x = Math.max(insideRect.left, Math.min(lastCursorX, insideRect.right - currentCharacter.offsetWidth));
-      let y = Math.max(insideRect.top, Math.min(lastCursorY, insideRect.bottom - currentCharacter.offsetHeight));
+      let x = Math.max(insideRect.left + currentCharacter.offsetWidth / 2, Math.min(lastCursorX, insideRect.right - currentCharacter.offsetWidth / 2));
+      let y = Math.max(insideRect.top + currentCharacter.offsetHeight / 2, Math.min(lastCursorY, insideRect.bottom - currentCharacter.offsetHeight / 2));
       currentCharacter.style.left = `${x - currentCharacter.offsetWidth / 2}px`;
       currentCharacter.style.top = `${y - currentCharacter.offsetHeight / 2}px`;
   }

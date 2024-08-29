@@ -24,24 +24,25 @@ document.addEventListener('DOMContentLoaded', () => {
             currentCharacter.classList.remove('trapped');
         }
     }
-});
+  });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        removeAllCharacters();
-        return;
-    }
+      if (e.key === 'Escape') {
+          removeAllCharacters();
+          return;
+      }
 
-    if (isLetterKey(e.key)) {
-        if (currentCharacter) {
-            currentCharacter.classList.remove('follow');
-            currentCharacter = null;
-        }
+      if (isLetterKey(e.key)) {
+          if (currentCharacter) {
+              currentCharacter.classList.remove('follow');
+              currentCharacter = null;
+          }
 
-        currentCharacter = createCharacter(e.key);
-        body.appendChild(currentCharacter);
-    }
-});
+          currentCharacter = createCharacter(e.key);
+          body.appendChild(currentCharacter);
+      }
+  });
+
   function isPointerInside(event, element) {
       const rect = element.getBoundingClientRect();
       return event.clientX >= rect.left && event.clientX <= rect.right &&
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const charDiv = document.createElement('div');
       charDiv.textContent = letter;
       charDiv.classList.add('character', 'follow');
+      charDiv.style.position = 'absolute';
       return charDiv;
   }
 
@@ -61,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentCharacter = null;
   }
 
-  inside.addEventListener('mouseleave', () => {
+  insideZone.addEventListener('mouseleave', () => {
       if (currentCharacter && currentCharacter.classList.contains('trapped')) {
           currentCharacter.classList.remove('follow');
           currentCharacter = null;

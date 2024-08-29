@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   const body = document.body;
   let currentCharacter = null;
+  let lastCursorX = 0;
+  let lastCursorY = 0;
+  let animationFrameId = null;
 
   const outsideZone = document.createElement('div');
   outsideZone.classList.add('zone', 'outside');
@@ -10,12 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
   insideZone.classList.add('zone', 'inside');
   body.appendChild(insideZone);
 
-  let lastCursorX = 0;
-  let lastCursorY = 0;
-
   body.addEventListener('mousemove', (e) => {
       lastCursorX = e.clientX;
       lastCursorY = e.clientY;
+
+      if (animationFrameId === null) {
+          animationFrameId = requestAnimationFrame(updateCharacterPosition);
+      }
   });
 
   document.addEventListener('keydown', (e) => {
@@ -39,10 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   });
 
-  body.addEventListener('mousemove', (e) => {
+  function updateCharacterPosition() {
       if (currentCharacter && currentCharacter.classList.contains('follow')) {
-          let x = e.clientX;
-          let y = e.clientY;
+          let x = lastCursorX;
+          let y = lastCursorY;
 
           if (currentCharacter.classList.contains('trapped')) {
               const insideRect = insideZone.getBoundingClientRect();
@@ -50,14 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
               y = Math.max(insideRect.top, Math.min(y, insideRect.bottom - currentCharacter.offsetHeight));
           }
 
-          currentCharacter.style.left = `${x}px`;
-          currentCharacter.style.top = `${y}px`;
+          currentCharacter.style.left = `${x - currentCharacter.offsetWidth / 2}px`;
+          currentCharacter.style.top = `${y - currentCharacter.offsetHeight / 2}px`;
 
-          if (!currentCharacter.classList.contains('trapped') && isPointerInside(e, insideZone)) {
+          if (!currentCharacter.classList.contains('trapped') && isPointerInside({ clientX: lastCursorX, clientY: lastCursorY }, insideZone)) {
               currentCharacter.classList.add('trapped');
           }
       }
-  });
+
+      animationFrameId = null;
+  }
 
   insideZone.addEventListener('mouseleave', () => {
       if (currentCharacter && currentCharacter.classList.contains('trapped')) {
@@ -77,15 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
       charDiv.textContent = letter;
       charDiv.classList.add('character', 'follow');
       charDiv.style.position = 'absolute';
-
       charDiv.style.left = `${x - charDiv.offsetWidth / 2}px`;
       charDiv.style.top = `${y - charDiv.offsetHeight / 2}px`;
-
       body.appendChild(charDiv);
-
       charDiv.style.left = `${x - charDiv.offsetWidth / 2}px`;
       charDiv.style.top = `${y - charDiv.offsetHeight / 2}px`;
-
       return charDiv;
   }
 

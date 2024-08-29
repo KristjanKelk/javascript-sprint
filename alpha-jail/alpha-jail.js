@@ -14,35 +14,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const inside = document.querySelector('.inside');
 
   body.addEventListener('mousemove', (e) => {
-      if (currentCharacter && currentCharacter.classList.contains('follow')) {
-          currentCharacter.style.left = `${e.clientX - 10}px`;
-          currentCharacter.style.top = `${e.clientY - 10}px`;
+    if (currentCharacter && currentCharacter.classList.contains('follow')) {
+        currentCharacter.style.left = `${e.clientX - currentCharacter.offsetWidth / 2}px`;
+        currentCharacter.style.top = `${e.clientY - currentCharacter.offsetHeight / 2}px`;
 
-          if (isPointerInside(e, inside)) {
-              currentCharacter.classList.add('trapped');
-          } else {
-              currentCharacter.classList.remove('trapped');
-          }
-      }
-  });
+        if (isPointerInside(e, inside)) {
+            currentCharacter.classList.add('trapped');
+        } else {
+            currentCharacter.classList.remove('trapped');
+        }
+    }
+});
 
   document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-          removeAllCharacters();
-          return;
-      }
+    if (e.key === 'Escape') {
+        removeAllCharacters();
+        return;
+    }
 
-      if (isLetterKey(e.key)) {
-          if (currentCharacter) {
-              currentCharacter.classList.remove('follow');
-              currentCharacter = null;
-          }
+    if (isLetterKey(e.key)) {
+        if (currentCharacter) {
+            currentCharacter.classList.remove('follow');
+            currentCharacter = null;
+        }
 
-          currentCharacter = createCharacter(e.key);
-          body.appendChild(currentCharacter);
-      }
-  });
-
+        currentCharacter = createCharacter(e.key);
+        body.appendChild(currentCharacter);
+    }
+});
   function isPointerInside(event, element) {
       const rect = element.getBoundingClientRect();
       return event.clientX >= rect.left && event.clientX <= rect.right &&
@@ -71,5 +70,5 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function isLetterKey(key) {
-  return key.length === 1 && key.match(/[a-z]/i);
+  return key.length === 1 && key >= 'a' && key <= 'z';
 }

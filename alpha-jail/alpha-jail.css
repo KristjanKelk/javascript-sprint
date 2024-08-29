@@ -1,0 +1,49 @@
+:root {
+  --orange: orange;
+}
+
+body, html {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+}
+
+.outside {
+  left: 0;
+  background-color: lightgray;
+}
+
+.inside {
+  right: 0;
+  background-color: darkgray;
+}
+
+.character {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+  pointer-events: none;
+  user-select: none;
+}
+
+.follow {
+  transition: background-color 0.3s ease;
+}
+
+.trapped {
+  background-color: var(--orange) !important;
+}

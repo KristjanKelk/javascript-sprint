@@ -13,6 +13,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const outside = document.querySelector('.outside');
   const inside = document.querySelector('.inside');
 
+  document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+          removeAllCharacters();
+          return;
+      }
+
+      if (isLetterKey(e.key)) {
+          if (currentCharacter) {
+              currentCharacter.classList.remove('follow');
+              currentCharacter = null;
+          }
+
+          const { clientX: x, clientY: y } = getCursorPosition();
+          currentCharacter = createCharacter(e.key, x, y);
+          body.appendChild(currentCharacter);
+
+          if (isPointerInside({ clientX: x, clientY: y }, inside)) {
+              currentCharacter.classList.add('trapped');
+          }
+      }
+  });
+
   body.addEventListener('mousemove', (e) => {
       if (currentCharacter && currentCharacter.classList.contains('follow')) {
           let x = e.clientX - currentCharacter.offsetWidth / 2;
@@ -34,25 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   });
 
-  document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-          removeAllCharacters();
-          return;
-      }
+  function getCursorPosition() {
+      return { clientX: lastCursorX, clientY: lastCursorY };
+  }
 
-      if (isLetterKey(e.key)) {
-          if (currentCharacter) {
-              currentCharacter.classList.remove('follow');
-              currentCharacter = null;
-          }
+  let lastCursorX = 0;
+  let lastCursorY = 0;
 
-          currentCharacter = createCharacter(e.key, e.clientX, e.clientY);
-          body.appendChild(currentCharacter);
-
-          if (isPointerInside({ clientX: e.clientX, clientY: e.clientY }, inside)) {
-              currentCharacter.classList.add('trapped');
-          }
-      }
+  body.addEventListener('mousemove', (e) => {
+      lastCursorX = e.clientX;
+      lastCursorY = e.clientY;
   });
 
   function isPointerInside(event, element) {
@@ -66,8 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
       charDiv.textContent = letter;
       charDiv.classList.add('character', 'follow');
       charDiv.style.position = 'absolute';
-      charDiv.style.left = `${x - 10}px`;
-      charDiv.style.top = `${y - 10}px`;
+      charDiv.style.left = `${x - charDiv.offsetWidth / 2}px`;
+      charDiv.style.top = `${y - charDiv.offsetHeight / 2}px`;
       return charDiv;
   }
 

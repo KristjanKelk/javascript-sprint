@@ -14,16 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const inside = document.querySelector('.inside');
 
   body.addEventListener('mousemove', (e) => {
-    if (currentCharacter && currentCharacter.classList.contains('follow')) {
-        currentCharacter.style.left = `${e.clientX - currentCharacter.offsetWidth / 2}px`;
-        currentCharacter.style.top = `${e.clientY - currentCharacter.offsetHeight / 2}px`;
+      if (currentCharacter && currentCharacter.classList.contains('follow')) {
+          currentCharacter.style.left = `${e.clientX - currentCharacter.offsetWidth / 2}px`;
+          currentCharacter.style.top = `${e.clientY - currentCharacter.offsetHeight / 2}px`;
 
-        if (isPointerInside(e, inside)) {
-            currentCharacter.classList.add('trapped');
-        } else {
-            currentCharacter.classList.remove('trapped');
-        }
-    }
+          if (isPointerInside(e, inside)) {
+              currentCharacter.classList.add('trapped');
+          } else {
+              currentCharacter.classList.remove('trapped');
+          }
+      }
   });
 
   document.addEventListener('keydown', (e) => {
@@ -38,8 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
               currentCharacter = null;
           }
 
-          currentCharacter = createCharacter(e.key);
+          currentCharacter = createCharacter(e.key, e.clientX, e.clientY);
           body.appendChild(currentCharacter);
+
+          if (isPointerInside({ clientX: e.clientX, clientY: e.clientY }, inside)) {
+              currentCharacter.classList.add('trapped');
+          }
       }
   });
 
@@ -49,11 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
              event.clientY >= rect.top && event.clientY <= rect.bottom;
   }
 
-  function createCharacter(letter) {
+  function createCharacter(letter, x, y) {
       const charDiv = document.createElement('div');
       charDiv.textContent = letter;
       charDiv.classList.add('character', 'follow');
       charDiv.style.position = 'absolute';
+      charDiv.style.left = `${x - 10}px`;
+      charDiv.style.top = `${y - 10}px`;
       return charDiv;
   }
 

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentCharacter = null;
   let lastCursorX = 0;
   let lastCursorY = 0;
-  let isMoving = false;
+  let animationFrameId = null;
 
   const outsideZone = document.createElement('div');
   outsideZone.classList.add('zone', 'outside');
@@ -17,9 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
       lastCursorX = e.clientX;
       lastCursorY = e.clientY;
 
-      if (!isMoving) {
-          isMoving = true;
-          requestAnimationFrame(updateCharacterPosition);
+      if (animationFrameId === null) {
+          animationFrameId = requestAnimationFrame(updateCharacterPosition);
       }
   });
 
@@ -55,19 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
               y = Math.max(insideRect.top, Math.min(y, insideRect.bottom - currentCharacter.offsetHeight));
           }
 
-          currentCharacter.style.left = `${x}px`;
-          currentCharacter.style.top = `${y}px`;
+          currentCharacter.style.left = `${x - currentCharacter.offsetWidth / 2}px`;
+          currentCharacter.style.top = `${y - currentCharacter.offsetHeight / 2}px`;
 
           if (!currentCharacter.classList.contains('trapped') && isPointerInside({ clientX: lastCursorX, clientY: lastCursorY }, insideZone)) {
               currentCharacter.classList.add('trapped');
           }
-
-          isMoving = false;
       }
 
-      if (isMoving) {
-          requestAnimationFrame(updateCharacterPosition);
-      }
+      animationFrameId = null;
   }
 
   insideZone.addEventListener('mouseleave', () => {
@@ -88,13 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
       charDiv.textContent = letter;
       charDiv.classList.add('character', 'follow');
       charDiv.style.position = 'absolute';
-      charDiv.style.left = `${x}px`;
-      charDiv.style.top = `${y}px`;
-
+      charDiv.style.left = `${x - charDiv.offsetWidth / 2}px`;
+      charDiv.style.top = `${y - charDiv.offsetHeight / 2}px`;
       body.appendChild(charDiv);
       charDiv.style.left = `${x - charDiv.offsetWidth / 2}px`;
       charDiv.style.top = `${y - charDiv.offsetHeight / 2}px`;
-
       return charDiv;
   }
 

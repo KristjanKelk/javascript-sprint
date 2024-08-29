@@ -39,6 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
           currentCharacter = createCharacter(e.key, lastCursorX, lastCursorY);
           body.appendChild(currentCharacter);
 
+          if (isPointerInside({ clientX: lastCursorX, clientY: lastCursorY }, insideZone)) {
+              currentCharacter.classList.add('trapped');
+          }
+
           animationFrameId = requestAnimationFrame(updateCharacterPosition);
       }
   });
@@ -60,13 +64,14 @@ document.addEventListener('DOMContentLoaded', () => {
           currentCharacter.style.left = `${x - currentCharacter.offsetWidth / 2}px`;
           currentCharacter.style.top = `${y - currentCharacter.offsetHeight / 2}px`;
 
-          animationFrameId = requestAnimationFrame(updateCharacterPosition);
-
+          // Check if the cursor is outside the jail and the character is trapped
           if (!isPointerInside({ clientX: lastCursorX, clientY: lastCursorY }, insideZone) && currentCharacter.classList.contains('trapped')) {
               snapToJailEdge();
               currentCharacter.classList.remove('follow');
               cancelAnimationFrame(animationFrameId);
               animationFrameId = null;
+          } else {
+              animationFrameId = requestAnimationFrame(updateCharacterPosition);
           }
       }
   }

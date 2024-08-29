@@ -15,13 +15,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   body.addEventListener('mousemove', (e) => {
       if (currentCharacter && currentCharacter.classList.contains('follow')) {
-          currentCharacter.style.left = `${e.clientX - currentCharacter.offsetWidth / 2}px`;
-          currentCharacter.style.top = `${e.clientY - currentCharacter.offsetHeight / 2}px`;
+          let x = e.clientX - currentCharacter.offsetWidth / 2;
+          let y = e.clientY - currentCharacter.offsetHeight / 2;
 
-          if (isPointerInside(e, inside)) {
+          if (currentCharacter.classList.contains('trapped')) {
+              const insideRect = inside.getBoundingClientRect();
+
+              x = Math.max(insideRect.left, Math.min(x, insideRect.right - currentCharacter.offsetWidth));
+              y = Math.max(insideRect.top, Math.min(y, insideRect.bottom - currentCharacter.offsetHeight));
+          }
+
+          currentCharacter.style.left = `${x}px`;
+          currentCharacter.style.top = `${y}px`;
+
+          if (!currentCharacter.classList.contains('trapped') && isPointerInside(e, inside)) {
               currentCharacter.classList.add('trapped');
-          } else {
-              currentCharacter.classList.remove('trapped');
           }
       }
   });

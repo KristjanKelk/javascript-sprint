@@ -57,12 +57,14 @@ document.addEventListener('DOMContentLoaded', () => {
           currentCharacter.style.left = `${x - currentCharacter.offsetWidth / 2}px`;
           currentCharacter.style.top = `${y - currentCharacter.offsetHeight / 2}px`;
 
-          if (!currentCharacter.classList.contains('trapped') && isPointerInside({ clientX: lastCursorX, clientY: lastCursorY }, insideZone)) {
-              currentCharacter.classList.add('trapped');
+          if (currentCharacter.classList.contains('trapped') && !isPointerInside({ clientX: x, clientY: y }, insideZone)) {
+              currentCharacter.classList.remove('follow');
+              animationFrameId = null;
+              return;
           }
-      }
 
-      animationFrameId = null;
+          animationFrameId = null;
+      }
   }
 
   insideZone.addEventListener('mouseleave', () => {

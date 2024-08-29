@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
           currentCharacter.style.top = `${y}px`;
 
           if (!currentCharacter.classList.contains('trapped') && isPointerInside(e, insideZone)) {
-              currentCharacter.classList.add('trapped')
+              currentCharacter.classList.add('trapped');
           }
       }
   });
@@ -77,8 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
       charDiv.textContent = letter;
       charDiv.classList.add('character', 'follow');
       charDiv.style.position = 'absolute';
-      charDiv.style.left = `${x}px`;
-      charDiv.style.top = `${y}px`;
+
+      charDiv.style.left = `${x - charDiv.offsetWidth / 2}px`;
+      charDiv.style.top = `${y - charDiv.offsetHeight / 2}px`;
+
+      body.appendChild(charDiv);
+
+      charDiv.style.left = `${x - charDiv.offsetWidth / 2}px`;
+      charDiv.style.top = `${y - charDiv.offsetHeight / 2}px`;
+
       return charDiv;
   }
 

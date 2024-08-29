@@ -1,49 +1,34 @@
 :root {
-  --orange: orange;
-}
-
-body, html {
-  margin: 0;
-  height: 100%;
-  overflow: hidden;
+  --orange: #ffa500;
 }
 
 .zone {
-  position: absolute;
-  top: 0;
-  bottom: 0;
   width: 50%;
+  height: 100vh;
+  display: inline-block;
+  position: relative;
 }
 
 .outside {
-  left: 0;
-  background-color: lightgray;
+  background-color: lightgrey;
 }
 
 .inside {
-  right: 0;
-  background-color: darkgray;
+  background-color: white;
 }
 
 .character {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  border-radius: 50%;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 24px;
   pointer-events: none;
-  user-select: none;
-}
-
-.follow {
-  transition: background-color 0.3s ease;
+  background-color: white;
+  padding: 10px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1;
+  transition: background-color 0.2s;
 }
 
 .trapped {
-  background-color: var(--orange) !important;
+  background-color: var(--orange);
 }

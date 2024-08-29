@@ -1,6 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
   const body = document.body;
   let currentCharacter = null;
+
+  const outsideZone = document.createElement('div');
+  outsideZone.classList.add('zone', 'outside');
+  body.appendChild(outsideZone);
+
+  const insideZone = document.createElement('div');
+  insideZone.classList.add('zone', 'inside');
+  body.appendChild(insideZone);
+
   const outside = document.querySelector('.outside');
   const inside = document.querySelector('.inside');
 
@@ -52,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
       characters.forEach(char => char.remove());
       currentCharacter = null;
   }
-  
+
   inside.addEventListener('mouseleave', () => {
       if (currentCharacter && currentCharacter.classList.contains('trapped')) {
           currentCharacter.classList.remove('follow');

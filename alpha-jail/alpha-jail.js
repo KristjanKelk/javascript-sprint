@@ -48,32 +48,33 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function updateCharacterPosition() {
-      if (currentCharacter && currentCharacter.classList.contains('follow')) {
-          let x = lastCursorX;
-          let y = lastCursorY;
+    if (currentCharacter && currentCharacter.classList.contains('follow')) {
+        let x = lastCursorX;
+        let y = lastCursorY;
 
-          if (isPointerInside({ clientX: x, clientY: y }, insideZone)) {
-              if (!currentCharacter.classList.contains('trapped')) {
-                  currentCharacter.classList.add('trapped');
-              }
-              const insideRect = insideZone.getBoundingClientRect();
-              x = Math.max(insideRect.left + currentCharacter.offsetWidth / 2, Math.min(x, insideRect.right - currentCharacter.offsetWidth / 2));
-              y = Math.max(insideRect.top + currentCharacter.offsetHeight / 2, Math.min(y, insideRect.bottom - currentCharacter.offsetHeight / 2));
-          }
+        if (isPointerInside({ clientX: x, clientY: y }, insideZone)) {
+            if (!currentCharacter.classList.contains('trapped')) {
+                currentCharacter.classList.add('trapped');
+            }
+            const insideRect = insideZone.getBoundingClientRect();
+            x = Math.max(insideRect.left + currentCharacter.offsetWidth / 2, Math.min(x, insideRect.right - currentCharacter.offsetWidth / 2));
+            y = Math.max(insideRect.top + currentCharacter.offsetHeight / 2, Math.min(y, insideRect.bottom + currentCharacter.offsetHeight / 2));
+        }
 
-          currentCharacter.style.left = `${x - currentCharacter.offsetWidth / 2}px`;
-          currentCharacter.style.top = `${y - currentCharacter.offsetHeight / 2}px`;
+        currentCharacter.style.left = `${x - currentCharacter.offsetWidth / 2}px`;
+        currentCharacter.style.top = `${y - currentCharacter.offsetHeight / 2}px`;
 
-          if (!isPointerInside({ clientX: lastCursorX, clientY: lastCursorY }, insideZone) && currentCharacter.classList.contains('trapped')) {
-              snapToJailEdge();
-              currentCharacter.classList.remove('follow');
-              cancelAnimationFrame(animationFrameId);
-              animationFrameId = null;
-          } else {
-              animationFrameId = requestAnimationFrame(updateCharacterPosition);
-          }
-      }
-  }
+        if (!isPointerInside({ clientX: lastCursorX, clientY: lastCursorY }, insideZone) && currentCharacter.classList.contains('trapped')) {
+            snapToJailEdge();
+            currentCharacter.classList.remove('follow');
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+        } else {
+            animationFrameId = requestAnimationFrame(updateCharacterPosition);
+        }
+    }
+}
+
 
   function snapToJailEdge() {
       const insideRect = insideZone.getBoundingClientRect();

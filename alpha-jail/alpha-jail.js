@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+
   const outsideDiv = document.createElement('div');
   const insideDiv = document.createElement('div');
+
 
   outsideDiv.classList.add('zone', 'outside');
   insideDiv.classList.add('zone', 'inside');
@@ -24,7 +26,23 @@ document.addEventListener('DOMContentLoaded', () => {
           charDiv.classList.add('character', 'follow');
           currentCharacter = charDiv;
 
+          const x = event.clientX - charDiv.offsetWidth / 2;
+          const y = event.clientY - charDiv.offsetHeight / 2;
+          charDiv.style.left = `${x}px`;
+          charDiv.style.top = `${y}px`;
+
           document.body.appendChild(charDiv);
+
+          const jailRect = insideDiv.getBoundingClientRect();
+          if (
+              event.clientX >= jailRect.left &&
+              event.clientX <= jailRect.right &&
+              event.clientY >= jailRect.top &&
+              event.clientY <= jailRect.bottom
+          ) {
+              charDiv.classList.add('trapped');
+              charDiv.style.backgroundColor = 'var(--orange)';
+          }
       }
   });
 
@@ -42,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
               event.clientY <= jailRect.bottom
           ) {
               currentCharacter.classList.add('trapped');
+              currentCharacter.style.backgroundColor = 'var(--orange)';
 
               x = Math.max(jailRect.left, Math.min(x, jailRect.right - currentCharacter.offsetWidth));
               y = Math.max(jailRect.top, Math.min(y, jailRect.bottom - currentCharacter.offsetHeight));

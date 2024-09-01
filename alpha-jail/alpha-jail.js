@@ -64,14 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
           currentCharacter.style.left = `${x - currentCharacter.offsetWidth / 2}px`;
           currentCharacter.style.top = `${y - currentCharacter.offsetHeight / 2}px`;
 
-          if (!isPointerInside({ clientX: lastCursorX, clientY: lastCursorY }, insideZone) && currentCharacter.classList.contains('trapped')) {
-              snapToJailEdge();
-              currentCharacter.classList.remove('follow');
-              cancelAnimationFrame(animationFrameId);
-              animationFrameId = null;
-          } else {
-              animationFrameId = requestAnimationFrame(updateCharacterPosition);
-          }
+          animationFrameId = requestAnimationFrame(updateCharacterPosition);
       }
   }
 

@@ -3,110 +3,92 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentCharacter = null;
   let lastCursorX = 0;
   let lastCursorY = 0;
-  let animationFrameId = null;
 
-  const outsideZone = document.createElement('div');
-  outsideZone.classList.add('zone', 'outside');
-  body.appendChild(outsideZone);
-
-  const insideZone = document.createElement('div');
-  insideZone.classList.add('zone', 'inside');
-  body.appendChild(insideZone);
+  const outsideZone = createZone('outside');
+  const insideZone = createZone('inside');
+  body.append(outsideZone, insideZone);
 
   body.addEventListener('mousemove', (e) => {
       lastCursorX = e.clientX;
       lastCursorY = e.clientY;
-
-      if (currentCharacter && currentCharacter.classList.contains('follow')) {
-          if (animationFrameId === null) {
-              animationFrameId = requestAnimationFrame(updateCharacterPosition);
-          }
-      }
+      updateCharacterPosition();
   });
 
   document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
           removeAllCharacters();
-          return;
-      }
-
-      if (isLetterKey(e.key)) {
-          if (currentCharacter) {
-              currentCharacter.classList.remove('follow');
-              currentCharacter = null;
-          }
-
-          currentCharacter = createCharacter(e.key, lastCursorX, lastCursorY);
-          body.appendChild(currentCharacter);
-
-          if (isPointerInside({ clientX: lastCursorX, clientY: lastCursorY }, insideZone)) {
-              currentCharacter.classList.add('trapped');
-          }
-
-          animationFrameId = requestAnimationFrame(updateCharacterPosition);
+      } else if (isLetterKey(e.key)) {
+          createNewCharacter(e.key);
       }
   });
 
-  function updateCharacterPosition() {
-      if (currentCharacter && currentCharacter.classList.contains('follow')) {
-          let x = lastCursorX;
-          let y = lastCursorY;
-
-          if (isPointerInside({ clientX: x, clientY: y }, insideZone)) {
-              if (!currentCharacter.classList.contains('trapped')) {
-                  currentCharacter.classList.add('trapped');
-              }
-              const insideRect = insideZone.getBoundingClientRect();
-              x = Math.max(insideRect.left + currentCharacter.offsetWidth / 2, Math.min(x, insideRect.right - currentCharacter.offsetWidth / 2));
-              y = Math.max(insideRect.top + currentCharacter.offsetHeight / 2, Math.min(y, insideRect.bottom - currentCharacter.offsetHeight / 2));
-          }
-
-          currentCharacter.style.left = `${x - currentCharacter.offsetWidth / 2}px`;
-          currentCharacter.style.top = `${y - currentCharacter.offsetHeight / 2}px`;
-
-          animationFrameId = requestAnimationFrame(updateCharacterPosition);
-      }
+  function createZone(className) {
+      const zone = document.createElement('div');
+      zone.classList.add('zone', className);
+      return zone;
   }
 
-  function snapToJailEdge() {
-      const insideRect = insideZone.getBoundingClientRect();
-      let x = Math.max(insideRect.left + currentCharacter.offsetWidth / 2, Math.min(lastCursorX, insideRect.right - currentCharacter.offsetWidth / 2));
-      let y = Math.max(insideRect.top + currentCharacter.offsetHeight / 2, Math.min(lastCursorY, insideRect.bottom - currentCharacter.offsetHeight / 2));
+  function createNewCharacter(letter) {
+      if (currentCharacter) {
+          currentCharacter.classList.remove('follow');
+          currentCharacter = null;
+      }
+
+      currentCharacter = document.createElement('div');
+      currentCharacter.textContent = letter;
+      currentCharacter.classList.add('character', 'follow');
+      body.appendChild(currentCharacter);
+
+      updateCharacterPosition();
+  }
+
+  function updateCharacterPosition() {
+      if (!currentCharacter) return;
+
+      let x = lastCursorX;
+      let y = lastCursorY;
+
+      if (isPointerInside(insideZone)) {
+          const rect = insideZone.getBoundingClientRect();
+          x = Math.max(rect.left + currentCharacter.offsetWidth / 2, Math.min(x, rect.right - currentCharacter.offsetWidth / 2));
+          y = Math.max(rect.top + currentCharacter.offsetHeight / 2, Math.min(y, rect.bottom - currentCharacter.offsetHeight / 2));
+
+          currentCharacter.classList.add('trapped');
+      } else if (currentCharacter.classList.contains('trapped')) {
+          snapToJailEdge();
+          currentCharacter.classList.remove('follow');
+          currentCharacter = null;
+          return;
+      }
+
       currentCharacter.style.left = `${x - currentCharacter.offsetWidth / 2}px`;
       currentCharacter.style.top = `${y - currentCharacter.offsetHeight / 2}px`;
   }
 
-  insideZone.addEventListener('mouseleave', () => {
-      if (currentCharacter && currentCharacter.classList.contains('trapped')) {
-          snapToJailEdge();
-          currentCharacter.classList.remove('follow');
-          currentCharacter = null;
-      }
-  });
+  function snapToJailEdge() {
+      const rect = insideZone.getBoundingClientRect();
+      let x = lastCursorX;
+      let y = lastCursorY;
 
-  function isPointerInside(event, element) {
-      const rect = element.getBoundingClientRect();
-      return event.clientX >= rect.left && event.clientX <= rect.right &&
-             event.clientY >= rect.top && event.clientY <= rect.bottom;
+      x = Math.max(rect.left + currentCharacter.offsetWidth / 2, Math.min(x, rect.right - currentCharacter.offsetWidth / 2));
+      y = Math.max(rect.top + currentCharacter.offsetHeight / 2, Math.min(y, rect.bottom - currentCharacter.offsetHeight / 2));
+
+      currentCharacter.style.left = `${x - currentCharacter.offsetWidth / 2}px`;
+      currentCharacter.style.top = `${y - currentCharacter.offsetHeight / 2}px`;
   }
 
-  function createCharacter(letter, x, y) {
-      const charDiv = document.createElement('div');
-      charDiv.textContent = letter;
-      charDiv.classList.add('character', 'follow');
-      charDiv.style.position = 'absolute';
-      charDiv.style.left = `${x - charDiv.offsetWidth / 2}px`;
-      charDiv.style.top = `${y - charDiv.offsetHeight / 2}px`;
-      return charDiv;
+  function isPointerInside(element) {
+      const rect = element.getBoundingClientRect();
+      return lastCursorX >= rect.left && lastCursorX <= rect.right &&
+             lastCursorY >= rect.top && lastCursorY <= rect.bottom;
   }
 
   function removeAllCharacters() {
-      const characters = document.querySelectorAll('.character');
-      characters.forEach(char => char.remove());
+      document.querySelectorAll('.character').forEach(char => char.remove());
       currentCharacter = null;
   }
 
   function isLetterKey(key) {
-      return key.length === 1 && key >= 'a' && key <= 'z';
+      return /^[a-z]$/.test(key);
   }
 });

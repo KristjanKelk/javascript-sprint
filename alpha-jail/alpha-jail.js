@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentCharacter = null;
   let lastCursorX = 0;
   let lastCursorY = 0;
+  let animationFrameId = null;
 
   // Create two zones: outside (left) and inside (right)
   const outsideZone = createZone('outside');
@@ -14,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     lastCursorX = e.clientX;
     lastCursorY = e.clientY;
 
-    if (!animationFrameId) {
+    if (currentCharacter && !animationFrameId) {
       animationFrameId = requestAnimationFrame(() => {
-        updateCharacterPosition();
+        updateCharacterPosition(); // Update character position on each frame
         animationFrameId = null;
       });
     }
@@ -30,8 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
       createNewCharacter(e.key); // Create a new character on letter key press
     }
   });
-
-  let animationFrameId = null;
 
   // Function to create zones
   function createZone(className) {
@@ -50,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentCharacter = document.createElement('div');
     currentCharacter.textContent = letter;
     currentCharacter.classList.add('character', 'follow');
+    currentCharacter.style.backgroundColor = 'white'; // Ensure background is white
     body.appendChild(currentCharacter);
 
     updateCharacterPosition(); // Position the character initially
@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // If the cursor is inside the jail (insideZone)
     if (isPointerInside(insideZone)) {
       const rect = insideZone.getBoundingClientRect();
+      // Adjust x and y to stay within the insideZone bounds
       x = Math.max(rect.left, Math.min(x, rect.right - currentCharacter.offsetWidth));
       y = Math.max(rect.top, Math.min(y, rect.bottom - currentCharacter.offsetHeight));
 

@@ -2,41 +2,37 @@
   --orange: orange;
 }
 
-body {
+body, html {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  height: 100%;
 }
 
 .zone {
-  height: 100vh;
-  display: inline-block;
-  position: relative;
-  box-sizing: border-box;
+  width: 50%;
+  height: 100%;
+  float: left;
 }
 
 .outside {
-  width: 50vw;
-  max-width: 960px;
-  background-color: lightgrey;
+  background-color: white;
 }
 
 .inside {
-  width: 50vw;
-  max-width: 960px;
-  background-color: white;
+  background-color: lightgrey;
 }
 
 .character {
   position: absolute;
-  font-size: 24px;
-  pointer-events: none;
-  background-color: white;
-  padding: 10px;
-  border-radius: 50%;
   text-align: center;
-  line-height: 1;
-  transition: background-color 0.2s;
+  cursor: pointer;
+  font-size: 3px;
+  display: block;
+  justify-content: center;
+  background-color: white;
+  pointer-events: none;
+  user-select: none;
+
 }
 
 .trapped {
